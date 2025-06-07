@@ -1,10 +1,9 @@
 
-function start(){
-    console.log("App started");
-}
-
 function init(){
     console.log("App initialized");
+    //load data
+
+    //hook events
 }
 
 window.onload = init; //this wait for the DOM to be fully loaded before running init

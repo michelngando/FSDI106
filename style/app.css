@@ -1,0 +1,16 @@
+body {
+    background-color: aliceblue;
+}
+main {
+    display: flex;   
+    height: calc(100vh - 87px);
+}
+
+#list{     /*use # to select an Id. Additionally siblings can share the same properties */
+    background-color: antiquewhite;
+    flex: 1;
+}
+#form{
+    background-color: aqua;
+    flex: 1;
+}
