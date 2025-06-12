@@ -9,6 +9,7 @@ main {
 #list{     /*use # to select an Id. Additionally siblings can share the same properties */
     background-color: antiquewhite;
     flex: 1;
+    padding-left: 1vh;
 }
 #form{
     background-color: aqua;
