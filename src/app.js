@@ -12,13 +12,47 @@ function saveTask() {
     let newTask = new Task(title, description, color, date, status, budget);
     console.log(newTask);
     //send the task object to the server
-
+    $.ajax({
+        type: "post",
+        url: "http://fsdiapi.azurewebsites.net/api/tasks/",
+        data: JSON.stringify(newTask),
+        contentType: "application/json",
+        success: function (response) {
+            console.log("Task saved", response);
+        },
+        error: function (error) {
+            console.log("Error saving task", error);
+        }
+    });
 
     //display the task into the UI/list section
-    displayTask(newTask);
+    //displayTask(newTask);
+}
+//load the task from the server
+function loadTasks() {
+    $.ajax(
+        {
+            type: "get",
+            url: "http://fsdiapi.azurewebsites.net/api/tasks",
+            success: function (response) {
+                let data = JSON.parse(response);
+                for(let i=0; i<data.length; i++){
+                    let task = data[i];
+                    if(task.name == "Michel58"){
+                        displayTask(task);
+                    }
+                }
+                console.log(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+        }
+    )
 }
 
-function displayTask(task){
+function displayTask(task) {
     let taskHtml = `<div class="task">
             <h5>Today's task: ${task.title}</h5>
             <p>Description: ${task.description}</p>
@@ -28,11 +62,28 @@ function displayTask(task){
     $(".get-list").append(taskHtml);
 }
 
+function testConnection() {
+    $.ajax(      //AJAX is Asynchronous JavaScript XML
+        {
+            type: "GET",  //This is the method
+            url: "http://fsdiapi.azurewebsites.net", //Here's the server
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (errorMsg) {
+                console.log(errorMsg);
+            }
 
-function init(){
+        }
+    )
+}
+
+
+function init() {
     console.log("App initialized");
     //load data
-
+   // $("#btnSave").click(loadTasks);
+   loadTasks();
     //hook events
     $("#btnSave").click(saveTask);
 }
